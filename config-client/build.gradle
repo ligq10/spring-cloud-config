@@ -1,0 +1,17 @@
+version = '1.0'
+def gitTag  = 'git describe --tags'.execute([], project.rootDir).text.trim()
+jar {
+    baseName = 'config-client-rest'+"-$profile"+'-tag'
+    version = gitTag
+}
+
+
+dependencies {
+	compile(            
+			"org.springframework.boot:spring-boot-starter-web",
+            "org.springframework.boot:spring-boot-starter-data-rest",
+            "org.springframework.cloud:spring-cloud-starter-config"
+            )
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+   	compile fileTree(dir: 'libs', include: '*.jar')
+}
